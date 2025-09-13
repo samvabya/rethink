@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:rethink/services/chat_api.dart';
 import 'package:rethink/screens/chat_screen.dart';
+import 'package:rethink/services/image_api.dart';
 import 'package:rethink/theme.dart';
 
 Future<void> main() async {
@@ -17,7 +18,12 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider<ChatApi>(create: (_) => ChatApi())],
+      providers: [
+        ChangeNotifierProvider<ChatApi>(create: (_) => ChatApi()),
+        ChangeNotifierProvider<ImageGeneratorProvider>(
+          create: (_) => ImageGeneratorProvider(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: AppThemes.lightTheme,

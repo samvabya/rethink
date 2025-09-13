@@ -11,7 +11,7 @@ class ChatApi extends ChangeNotifier {
   final List<ChatMessage> messages = [];
   bool isLoading = false;
 
-  static final String? apiKey = dotenv.env['OPENROUTER_KEY'];
+  static final String? apiKey = dotenv.env['OPENROUTER_API_KEY'];
   static const String baseUrl = 'https://openrouter.ai/api/v1/chat/completions';
 
   void scrollToBottom() {
@@ -28,7 +28,7 @@ class ChatApi extends ChangeNotifier {
     final headers = {
       'Authorization': 'Bearer $apiKey',
       'Content-Type': 'application/json',
-      'X-Title': 'realm', // Optional: for OpenRouter
+      'X-Title': 'rethink', // Optional: for OpenRouter
     };
 
     final body = jsonEncode({

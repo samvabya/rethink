@@ -8,22 +8,16 @@ class AppConstants {
 
   static const List<AIModel> availableModels = [
     AIModel(
-      id: 'openai/gpt-4o-mini-2024-07-18',
-      name: 'OpenAI GPT-4o Mini',
-      provider: 'OpenAI',
+      id: 'google/gemini-2.0-flash-exp:free',
+      name: 'Gemini 2.0 Flash',
+      provider: 'Google',
       isPlus: false,
     ),
     AIModel(
       id: 'google/gemma-3n-e4b-it:free',
       name: 'Google Gemma 3n E4B IT',
       provider: 'Google',
-      isPlus: false,
-    ),
-    AIModel(
-      id: 'google/gemini-2.0-flash-exp:free',
-      name: 'Gemini 2.0 Flash',
-      provider: 'Google',
-      isPlus: false,
+      isPlus: true,
     ),
     AIModel(
       id: 'meta-llama/llama-3.2-3b-instruct:free',
@@ -33,7 +27,7 @@ class AppConstants {
     ),
     AIModel(
       id: 'deepseek/deepseek-r1:free',
-      name: 'DeepSeek: R1',
+      name: 'DeepSeek R1',
       provider: 'DeepSeek',
       isPlus: true,
     ),
@@ -45,21 +39,21 @@ class AppConstants {
     ),
     AIModel(
       id: 'mistralai/devstral-small:free',
-      name: 'Mistral: Devstral Small',
+      name: 'Mistral Devstral Small',
       provider: 'Mistral',
       isPlus: false,
     ),
     AIModel(
       id: 'microsoft/phi-4-reasoning:free',
-      name: 'Microsoft: Phi 4 Reasoning',
+      name: 'Microsoft Phi 4 Reasoning',
       provider: 'Microsoft',
       isPlus: true,
     ),
     AIModel(
       id: 'qwen/qwen3-30b-a3b:free',
-      name: 'Qwen3 30B A3B',
+      name: 'Qwen 3 30B A3B',
       provider: 'Qwen',
-      isPlus: false,
+      isPlus: true,
     ),
   ];
 
@@ -70,4 +64,3 @@ class AppConstants {
     'Give me a recipe idea',
   ];
 }
-

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gpt_markdown/gpt_markdown.dart';
 
 class ChatMessage {
   final String text;
@@ -54,7 +55,7 @@ class ChatMessageWidget extends StatelessWidget {
                     : Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(18),
               ),
-              child: Text(
+              child: GptMarkdown(
                 message.text.isEmpty ? '...' : message.text,
                 style: TextStyle(
                   color: message.isUser
@@ -64,6 +65,9 @@ class ChatMessageWidget extends StatelessWidget {
                       : Theme.of(context).colorScheme.onSurface,
                 ),
               ),
+              // child: MarkdownWidget(
+              //   data: message.text.isEmpty ? '...' : message.text,
+              // ),
             ),
           ),
           // if (message.isUser) ...[
