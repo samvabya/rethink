@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gallery_saver_plus/gallery_saver.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:rethink/services/image_api.dart';
+import 'package:share_plus/share_plus.dart';
 
 class GeneratedImage extends StatelessWidget {
   const GeneratedImage({Key? key}) : super(key: key);
@@ -19,10 +21,9 @@ class GeneratedImage extends StatelessWidget {
       children: [
         Text(
           'Your generated image',
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 16),
         Container(
@@ -47,28 +48,10 @@ class GeneratedImage extends StatelessWidget {
                 child: Container(
                   color: const Color(0xFF2A2A2A),
                   child: const Center(
-                    child: Icon(
-                      Icons.error,
-                      color: Colors.red,
-                      size: 32,
-                    ),
+                    child: Icon(Icons.error, color: Colors.red, size: 32),
                   ),
                 ),
               ),
-              // : (context, child, loadingProgress) {
-              //   if (loadingProgress == null) return child;
-              //   return AspectRatio(
-              //     aspectRatio: 1,
-              //     child: Container(
-              //       color: const Color(0xFF2A2A2A),
-              //       child: const Center(
-              //         child: CircularProgressIndicator(
-              //           color: Color(0xFF6C63FF),
-              //         ),
-              //       ),
-              //     ),
-              //   );
-              // },
             ),
           ),
         ),
@@ -81,15 +64,16 @@ class GeneratedImage extends StatelessWidget {
               label: 'Save',
               onPressed: () async {
                 try {
-                  // final result = await ImageGallerySaver.saveImage(
-                  //   imageBytes,
-                  //   quality: 100,
-                  //   name: "remagine_${DateTime.now().millisecondsSinceEpoch}"
-                  // );
-                  if (context.mounted) {
+                  final tempDir = await getTemporaryDirectory();
+                  final file = File('${tempDir.path}/reimage.png');
+                  await file.writeAsBytes(imageBytes);
+
+                  final success = await GallerySaver.saveImage(file.path);
+
+                  if (success == true) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text('Feature coming soon!'),
+                        content: Text('Image saved to gallery'),
                         backgroundColor: Color(0xFF6C63FF),
                       ),
                     );
@@ -113,13 +97,10 @@ class GeneratedImage extends StatelessWidget {
               onPressed: () async {
                 try {
                   final tempDir = await getTemporaryDirectory();
-                  final file = File('${tempDir.path}/remagine_image.png');
+                  final file = File('${tempDir.path}/reimage.png');
                   await file.writeAsBytes(imageBytes);
 
-                  // await Share.shareXFiles(
-                  //   [XFile(file.path)],
-                  //   text: 'Check out this AI-generated image from Remagine!',
-                  // );
+                  await Share.shareXFiles([XFile(file.path)]);
                 } catch (e) {
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -169,13 +150,7 @@ class _ActionButton extends StatelessWidget {
           children: [
             Icon(icon, color: const Color(0xFF6C63FF)),
             const SizedBox(height: 4),
-            Text(
-              label,
-              style: const TextStyle(
-                color: Colors.white70,
-                fontSize: 12,
-              ),
-            ),
+            Text(label, style: const TextStyle(fontSize: 12)),
           ],
         ),
       ),

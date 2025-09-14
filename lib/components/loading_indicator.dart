@@ -10,23 +10,21 @@ class LoadingIndicator extends StatelessWidget {
       child: Column(
         children: [
           Lottie.network(
-            'https://assets10.lottiefiles.com/packages/lf20_rwq6ciql.json',
+            'https://lottie.host/a0212015-627a-4317-845d-3d3965c6a655/zjlY7kbx3E.json',
             width: 200,
             height: 200,
           ),
           const SizedBox(height: 16),
           Text(
             'Creating your masterpiece...',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: Colors.white70,
-            ),
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 8),
           Text(
             'This may take a few moments',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.white54,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium,
           ),
         ],
       ),
