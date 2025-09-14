@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:rethink/services/chat_api.dart';
 import 'package:rethink/screens/chat_screen.dart';
 import 'package:rethink/services/image_api.dart';
+import 'package:rethink/services/chat_history_service.dart';
 import 'package:rethink/theme.dart';
 
 Future<void> main() async {
@@ -19,16 +20,44 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<ChatApi>(create: (_) => ChatApi()),
+        ChangeNotifierProvider<ChatHistoryService>(
+          create: (_) => ChatHistoryService()..initialize(),
+        ),
+        ChangeNotifierProvider<ChatApi>(
+          create: (_) => ChatApi(),
+        ),
         ChangeNotifierProvider<ImageGeneratorProvider>(
           create: (_) => ImageGeneratorProvider(),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: AppThemes.lightTheme,
-        darkTheme: AppThemes.darkTheme,
-        home: ChatScreen(),
+      child: Consumer2<ChatApi, ChatHistoryService>(
+        builder: (context, chatApi, historyService, child) {
+          // Set up the save callback when providers are available
+          chatApi.setSaveCallback(() async {
+            if (chatApi.messages.isNotEmpty) {
+              if (chatApi.currentHistoryId != null) {
+                // Update existing chat
+                await historyService.updateChatSession(
+                  chatApi.currentHistoryId!,
+                  chatApi.messages,
+                );
+              } else {
+                // Save new chat
+                final historyId = await historyService.saveChatSession(chatApi.messages);
+                if (historyId != null) {
+                  chatApi.updateCurrentHistoryId(historyId);
+                }
+              }
+            }
+          });
+
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppThemes.lightTheme,
+            darkTheme: AppThemes.darkTheme,
+            home: const ChatScreen(),
+          );
+        },
       ),
     );
   }

@@ -32,11 +32,22 @@ class ModelSelector extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(width: 8),
-              Text(
-                'Ai Models',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: '${AppConstants.availableModels.length}+ ',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.tealAccent,
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'Ai Models',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

@@ -13,6 +13,46 @@ class ChatMessage {
     this.isError = false,
     DateTime? timestamp,
   }) : timestamp = timestamp ?? DateTime.now();
+
+  // Convert ChatMessage to Map for JSON serialization
+  Map<String, dynamic> toMap() {
+    return {
+      'text': text,
+      'isUser': isUser,
+      'isError': isError,
+      'timestamp': timestamp.toIso8601String(),
+    };
+  }
+
+  // Create ChatMessage from Map (JSON deserialization)
+  factory ChatMessage.fromMap(Map<String, dynamic> map) {
+    return ChatMessage(
+      text: map['text'] ?? '',
+      isUser: map['isUser'] ?? false,
+      isError: map['isError'] ?? false,
+      timestamp: DateTime.parse(map['timestamp']),
+    );
+  }
+
+  // Create a copy with updated values
+  ChatMessage copyWith({
+    String? text,
+    bool? isUser,
+    bool? isError,
+    DateTime? timestamp,
+  }) {
+    return ChatMessage(
+      text: text ?? this.text,
+      isUser: isUser ?? this.isUser,
+      isError: isError ?? this.isError,
+      timestamp: timestamp ?? this.timestamp,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'ChatMessage{text: $text, isUser: $isUser, isError: $isError, timestamp: $timestamp}';
+  }
 }
 
 class ChatMessageWidget extends StatelessWidget {
@@ -30,20 +70,6 @@ class ChatMessageWidget extends StatelessWidget {
             : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // if (!message.isUser) ...[
-          //   CircleAvatar(
-          //     radius: 16,
-          //     backgroundColor: message.isError
-          //         ? Colors.red
-          //         : Theme.of(context).colorScheme.secondary,
-          //     child: Icon(
-          //       message.isError ? Icons.error : Icons.auto_awesome,
-          //       size: 16,
-          //       color: Theme.of(context).colorScheme.onSecondary,
-          //     ),
-          //   ),
-          //   const SizedBox(width: 8),
-          // ],
           Flexible(
             child: Container(
               padding: const EdgeInsets.all(12),
@@ -65,23 +91,8 @@ class ChatMessageWidget extends StatelessWidget {
                       : Theme.of(context).colorScheme.onSurface,
                 ),
               ),
-              // child: MarkdownWidget(
-              //   data: message.text.isEmpty ? '...' : message.text,
-              // ),
             ),
           ),
-          // if (message.isUser) ...[
-          //   const SizedBox(width: 8),
-          //   CircleAvatar(
-          //     radius: 16,
-          //     backgroundColor: Theme.of(context).colorScheme.primary,
-          //     child: Icon(
-          //       Icons.person,
-          //       size: 16,
-          //       color: Theme.of(context).colorScheme.onPrimary,
-          //     ),
-          //   ),
-          // ],
         ],
       ),
     );
