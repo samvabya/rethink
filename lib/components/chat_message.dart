@@ -81,14 +81,17 @@ class ChatMessageWidget extends StatelessWidget {
                     : Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(18),
               ),
-              child: GptMarkdown(
-                message.text.isEmpty ? '...' : message.text,
-                style: TextStyle(
-                  color: message.isUser
-                      ? Theme.of(context).colorScheme.onPrimary
-                      : message.isError
-                      ? Colors.red.shade800
-                      : Theme.of(context).colorScheme.onSurface,
+              child: SelectableRegion(
+                selectionControls: MaterialTextSelectionControls(),
+                child: GptMarkdown(
+                  message.text.isEmpty ? '...' : message.text,
+                  style: TextStyle(
+                    color: message.isUser
+                        ? Theme.of(context).colorScheme.onPrimary
+                        : message.isError
+                        ? Colors.red.shade800
+                        : Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
               ),
             ),
