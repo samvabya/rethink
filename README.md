@@ -1,6 +1,7 @@
 <div align="center">
     <img src="./android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="128" style="display: block; margin: 0 auto"/>
     <h1>rethink</h1>
+    <h6>reprompt + remagine</h6>
     <p>An Alrounder AI Assistant App built in Flutter.</p>
 </div>
 
@@ -26,7 +27,19 @@
 
 ### Chat Assist
 
+- Chat with 10+ AI Models for free
+- Enjoy new or experimental models pre rollout
+- View and Manage Chat History (with Auto-save)
+- Incognito Mode (chat without saving history)
+- Formatted GPT type and Selectable text response
+- Copy option for generated code snippets
+- Adaptive dark and light mode
+
 ### Image Generation
+
+- Create stunning images with Stable Diffusion 2.0+
+- Save and Share generated images on the go
+- Simple interactive UI
 
 ## Installation
 
