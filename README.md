@@ -2,7 +2,7 @@
     <img src="./android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="128" style="display: block; margin: 0 auto"/>
     <h1>rethink</h1>
     <h6>reprompt + remagine</h6>
-    <p>An Alrounder AI Assistant App built in Flutter.</p>
+    <p>A Multimodel AI Assistant App built in Flutter.</p>
 </div>
 
 ---
